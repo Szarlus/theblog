@@ -1,10 +1,18 @@
 <?php include('header.php'); ?>
-	
-    <div id="content">
-        
-        <h1>Welcome to PIP</h1>
-        <p>To get started please read the documentation at <a href="http://pip.dev7studios.com/">http://pip.dev7studios.com</a>.</p>
-        
-    </div>
+	<hr>
+    <div id="content" class="container">
 
+
+        <main class="row" style="border: solid rebeccapurple">
+            <div class="col-md-3" style="border: solid">sidemenu</div>
+
+            <div class="col-md-9" style="border: solid">MAIN CONTENT</div>
+        </main>
+
+        <footer class="row" style="border: solid rebeccapurple"> FOOTER
+
+        </footer>
+
+    </div>
+    <hr>
 <?php include('footer.php'); ?>
