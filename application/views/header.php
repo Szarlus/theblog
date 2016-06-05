@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" href="<?php echo BASE_URL; ?>static/images/myicon.png">
 
     <!-- Bootstrap -->
-    <link href="<?php echo BASE_URL; ?>static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,7 +21,10 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <div class="container">
+</head>
+<body>
+
+    <div class="container-fluid">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -55,9 +58,6 @@
         </nav>
 
         <header class="row" style="border: solid rebeccapurple">HEADER
-            <div class="jumbotron"></div>
+            <div class="container jumbotron"></div>
         </header>
     </div>
-
-</head>
-<body>

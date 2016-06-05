@@ -1,3 +1,12 @@
+
+
+<div class="navbar-fixed-bottom">
+    <footer style="border: solid rebeccapurple"> FOOTER
+    </footer>
+</div>
+
+
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="<?php echo BASE_URL; ?>static/js/jquery-1.12.3.min.js"></script>
 
