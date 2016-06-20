@@ -1,25 +1,25 @@
 <?php
 
-class Model {
+class Model  {
 
-	private $connection;
+	private $db;
 
 	public function __construct()
 	{
 		global $config;
 		
-		$this->connection = mysqli_pconnect($config['db_host'], $config['db_username'], $config['db_password']) or die('MySQL Error: '. mysqli_error());
-		mysqli_select_db($config['db_name'], $this->connection);
+		$this->db = new mysqli($config['db_host'], $config['db_username'], $config['db_password']) or die('MySQL Error: '. $this->db->connect_error);
+		$this->db->select_db($config['db_name']);
 	}
 
 	public function escapeString($string)
 	{
-		return mysqli_real_escape_string($string);
+		return $this->db->real_escape_string($string);
 	}
 
 	public function escapeArray($array)
 	{
-	    array_walk_recursive($array, create_function('&$v', '$v = mysql_real_escape_string($v);'));
+	    array_walk_recursive($array, create_function('&$v', '$v = $this->db->real_escape_string($v);'));
 		return $array;
 	}
 	
@@ -45,7 +45,7 @@ class Model {
 	
 	public function query($qry)
 	{
-		$result = mysqli_query($qry) or die('MySQL Error: '. mysqli_error());
+		$result = $this->db->query($qry) or die('MySQL Error: '. $this->db->error);
 		$resultObjects = array();
 
 		while($row = mysqli_fetch_object($result)) $resultObjects[] = $row;
@@ -55,7 +55,7 @@ class Model {
 
 	public function execute($qry)
 	{
-		$exec = mysqli_query($qry) or die('MySQL Error: '. mysqli_error());
+		$exec = $this->db->query($qry) or die('MySQL Error: '. $this->db->error);
 		return $exec;
 	}
     
