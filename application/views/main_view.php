@@ -1,20 +1,13 @@
-<?php include('header.php'); ?>
-	<hr>
+    <?php include('header.php');?>
+    <!-- Main body -->
     <div id="content" class="container">
-
-
-        <main class="row" style="border: solid rebeccapurple">
-            <div class="col-md-3" style="border: solid">
-                <aside>
-                    <?php
-                        include "sidebar.php";
-                    ?>
-                </aside>
+        <main class="row" >
+            <!-- here starts the sidebar -->
+            <?php include('sidebar.php'); ?>
+            <!-- here starts the main blog area -->
+            <div class="col-lg-8">
+                <?php include 'partials/posts_list.phtml'; ?>
             </div>
-
-            <div class="col-md-9" style="border: solid">MAIN CONTENT</div>
         </main>
-
     </div>
-    <hr>
-<?php include('footer.php'); ?>
+    <?php include('footer.php'); ?>

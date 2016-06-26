@@ -31,6 +31,7 @@ class Controller {
 	public function redirect($loc)
 	{
 		global $config;
+		//echo $loc;
 		
 		header('Location: '. $config['base_url'] . $loc);
 	}

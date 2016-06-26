@@ -1,1 +1,66 @@
 /* CSS Styles */
+
+body {
+    min-height: 200px;
+    padding-top: 70px;
+    padding-bottom: 50px;
+    background: url("../images/4px-bg.png") repeat;
+    /*-webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;*/
+}
+
+.post {
+    background-color: #F5F5F5;
+    border-radius: 6px;
+}
+
+.post_excerpt {
+    background-color: #F5F5F5;
+    border-radius: 6px;
+    padding: 1.5em;
+    margin-bottom: 20px;
+    display: none;
+}
+
+.about {
+    min-height: 500px;
+    padding: 1.5em;
+    background-color: #F5F5F5;
+    border-radius: 6px;
+}
+
+.contact_me {
+    padding-top: 1.5em;
+    padding-right: 1.5em;
+    padding-bottom: 1.5em;
+    background-color: #F5F5F5;
+    border-radius: 6px;
+}
+
+body hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #DDD;
+    margin: 1em 0;
+    padding: 0; 
+}
+
+.navbar-fixed-bottom.navbar {
+    min-height: 25px;
+}
+
+.img-circle.img-responsive {
+    margin: auto;
+}
+
+#post_content {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+textarea {
+    resize: vertical;
+}

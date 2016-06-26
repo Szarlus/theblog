@@ -1,0 +1,23 @@
+<div id="pagination" name="pagination"></div>
+<input type='hidden' id='current_page' />
+<input type='hidden' id='posts_per_page' />
+<section id="posts_list" name="posts_list">
+    <?php foreach ($posts as $post): ?>
+        <?php if ($post->id): ?>
+            <article class="post_excerpt" name="post_content" id="post_content">
+                <p>
+                    <i class="fa fa-calendar"></i><small> Utworzono: <?php echo $post->created_on ?></small>
+                </p>
+                <P class="lead">
+                    <a href='main/read/<?php echo $post->id?>'><?php echo $post->title ?></a>
+                </p>
+                <p>
+                    <?php echo strlen ($post->content) < 200 ? $post->content : substr($post->content, 0, 200)."....."; ?>
+                </p>
+                <p>
+                    <i class="fa fa-comment"></i><small> <?php echo count($post->comments)?: 0 ?> komentarzy</small>
+                </p>
+            </article>
+        <?php endif; ?>
+    <?php endforeach; ?>
+</section>
