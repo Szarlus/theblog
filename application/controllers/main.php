@@ -1,6 +1,6 @@
 <?php
 
-require_once('/application/models/posts_model.php');
+require_once('application/models/posts_model.php');
 
 class Main extends Controller {
 	

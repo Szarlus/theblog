@@ -17,7 +17,6 @@
     $(window).load(function(){
         // $("#post_content > p").first().addClass("lead");
         build_pagination();
-
     });
 
 </script>
