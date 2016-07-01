@@ -12,7 +12,7 @@
                 <div class="well" id="follow">
                     <h4><i class="fa fa-thumbs-o-up"></i> Śledźcie mnie</h4>
                     <div class="row">
-                        <img class="img-circle img-responsive" src="<?php echo BASE_URL; ?>static/images/Karol.jpg" width="175" height="250">
+                        <img class="img-circle img-responsive" src="<?php echo $config['base_url']; ?>static/images/Karol.jpg" width="175" height="250">
                         <hr>
                         <div class="col-lg-12">
                             <ul>

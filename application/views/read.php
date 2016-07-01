@@ -8,7 +8,7 @@
             <div class="col-lg-8 post">
                 <!-- title section -->
                 <section name='post_title'>
-                    <h1><a href=<?php echo $config['base_url'].$post->id; ?> ><?php echo $post->title ?></a></h1>
+                    <h1><a href=<?php echo $config['base_url'].'main/read/'.$post->id; ?> ><?php echo $post->title ?></a></h1>
                     <p class="lead">
                         <i class="fa fa-user"></i> przez <a href=""><?php echo $post->author ?></a>
                     </p>
@@ -30,7 +30,7 @@
                 <hr>
                 </br>
                 <!-- the comment box -->
-                <?php require('partials/comment_box.phtml'); ?>
+                <?php require('partials/comment_form.phtml'); ?>
                 <hr>
                 <!-- the comments section -->
                 <?php require('partials/comments_section.phtml'); ?>
