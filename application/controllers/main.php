@@ -12,7 +12,7 @@ class Main extends Controller {
 		$posts_count = count($posts);
 
 		if (!$posts_count)
-			$this->redirect('error');
+			$this->redirect('error/noPosts');
 		else{
 			$template = $this->loadView('main_view');
 			$template->set('posts', $posts);
@@ -54,6 +54,11 @@ class Main extends Controller {
 			$template->render();
 		}
 
+	}
+
+	function admin()
+	{
+		$this->redirect('admin');
 	}
 }
 

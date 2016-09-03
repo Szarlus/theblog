@@ -1,5 +1,6 @@
 <?php
     global $config;
+
     include(APP_DIR.'views/partials/head_include.phtml');
 ?>
 <body >
@@ -26,19 +27,10 @@
                             <li><a href="#">Page 1-3</a></li>
                         </ul>
                     </li>
-                    <li><a href="<?php echo BASE_URL;; ?>main/about">O autorze</a></li>
-                    <li><a href="<?php echo BASE_URL;; ?>main/contact">Kontakt</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-<!--                    <li><a href="#"><span class="glyphicon glyphicon-user"></span> Logowanie </a></li>-->
-                    <li><a href="<?php echo BASE_URL;; ?>main/admin"><span class="glyphicon glyphicon-log-in"></span> Strefa administracyjna</a></li>
+                    <li><a href="<?php echo BASE_URL; ?>admin/logout"><span class="glyphicon glyphicon-log-in"></span> Wyloguj </a></li>
                 </ul>
             </div>
         </div>
     </nav>
-
-    <div class="container">
-            <div class="jumbotron"><h1>HEADER</h1></div>
-    </div>
-
-

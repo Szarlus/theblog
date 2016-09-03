@@ -1,0 +1,48 @@
+<!--<h1 > Login</h1>-->
+<!--<form method = "post">-->
+<!--    <ol>-->
+<!--        <li>-->
+<!--            <label>-->
+<!--                Email:-->
+<!--                <input type = "text" name = "email" />-->
+<!--                {if isset($email_error)}-->
+<!--                {echo $email_error}-->
+<!--                {/if}-->
+<!--            </label>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <label>-->
+<!--                Password:-->
+<!--                <input type = "password" name = "password" />-->
+<!--                {if isset($password_error)}-->
+<!--                {echo $password_error}-->
+<!--                {/if}-->
+<!--            </label>-->
+<!--        </li>-->
+<!--        <li>-->
+<!--            <input type = "submit" name = "login" value = "login" />-->
+<!--        </li>-->
+<!--    </ol>-->
+<!--</form>-->
+
+<?php
+//echo $username."</BR>";
+//echo $password."</BR>";
+//echo "logged in :".var_export($logged, true)."</BR>";
+//var_dump($_POST);
+?>
+
+
+<div class="container">
+    <?php echo isset($error) ? $error : ''; ?>
+    <form class="form-signin centered" method="post">
+        <h1 class="form-signin-heading">Zaloguj się</h1>
+        <label for="inputNickname" class="sr-only">Adres e-mail</label>
+        <input type="username" id="inputNickname" name="inputNickname" class="form-control" placeholder="Nazwa użytkownika" required autofocus>
+        <label for="inputPassword" class="sr-only">Hasło</label>
+        <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Hasło" required>
+        <button class="btn btn-lg btn-primary btn-block" name='submit' type="submit">Zaloguj</button>
+
+    </form>
+
+</div> <!-- /container -->

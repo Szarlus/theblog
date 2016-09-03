@@ -1,8 +1,4 @@
 <?php
-/*
- * PIP v0.5.3
- */
-
 error_reporting(E_ALL ^ (E_NOTICE|E_STRICT));
 ini_set("display_errors", true);
 
@@ -18,12 +14,12 @@ require(APP_DIR .'config/config.php');
 require(ROOT_DIR .'system/model.php');
 require(ROOT_DIR .'system/view.php');
 require(ROOT_DIR .'system/controller.php');
-require(ROOT_DIR .'system/pip.php');
+require(ROOT_DIR . 'system/blog.php');
 
 // Define base URL
 global $config;
 define('BASE_URL', $config['base_url']);
 
-pip();
+blog();
 
 ?>

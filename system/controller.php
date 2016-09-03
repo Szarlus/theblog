@@ -6,7 +6,10 @@ class Controller {
 	{
 		require(APP_DIR .'models/'. strtolower($name) .'.php');
 
-		$model = new $name;
+		$name = explode('/', $name);
+		$model_name = end($name);
+
+		$model = new $model_name;
 		return $model;
 	}
 	
