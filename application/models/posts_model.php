@@ -23,7 +23,27 @@ class Posts extends Model
     {
         $posts = array();
 
-        $query = "SELECT p.*, u.user_nickname author FROM blog_post p, blog_user u WHERE p.post_created_by = u.id ";
+        $query = "SELECT 
+                        p.id,
+                        p.post_title,
+                        p.post_content,
+                        p.post_created_on,
+                        p.post_created_by,
+                        p.post_edited_on,
+                        p.post_edited_by,
+                        u.user_nickname author,
+                        COUNT(c.id) AS comments_count
+                    FROM
+                        blog_post p
+                            LEFT JOIN
+                        blog_user u ON p.post_created_by = u.id
+                            AND u.user_active = TRUE
+                            LEFT JOIN
+                        blog_comment c ON p.id = c.id 
+                            AND c.comment_enabled = TRUE
+                    WHERE
+                        p.post_enabled = TRUE ";
+
 
         if ($additional_conditions)
         {
@@ -32,16 +52,19 @@ class Posts extends Model
                 $query .= $condition;
             }
         }
-        $query .= ';';
+        $query .= " GROUP BY p.id;";
 
-        $results = $this->query($query);
+        $posts_info = $this->query($query);
 
-        if ($results)
+        if ($posts_info)
         {
-            foreach ($results as $result)
+            foreach ($posts_info as $post_info)
             {
                 $post = new Post();
-                $post = $this->assign_post_fields($post, $result);
+                $post = $this->assign_post_fields($post, $post_info);
+
+                // Changed original posts query
+                //$post->comments_count = $this->getCommentsCount($post->id);
                 $posts[] = $post;
             }
         }
@@ -54,7 +77,19 @@ class Posts extends Model
         $post = new Post();
 
         $id = (int)$this->escapeString($id);
-        $query = sprintf("SELECT p.*, u.user_nickname author FROM blog_post p, blog_user u WHERE p.id = %d AND p.post_created_by = u.id LIMIT 1", $id);
+
+        $query = "SELECT 
+                    p.*, 
+                    u.user_nickname AS author 
+                  FROM 
+                    blog_post p, 
+                    blog_user u 
+                  WHERE 
+                    p.id = %d 
+                  AND 
+                    p.post_created_by = u.id LIMIT 1;";
+        $query = sprintf($query, $id);
+
         $result = $this->query($query);
 
         $post = $this->assign_post_fields($post, $result[0]);
@@ -64,14 +99,15 @@ class Posts extends Model
 
     private function assign_post_fields($post, $fields)
     {
-        $post->id         = $fields->id;
-        $post->title      = $fields->post_title;
-        $post->content    = $fields->post_content;
-        $post->created_by = $fields->post_created_by;
-        $post->created_on = $fields->post_created_on;
-        $post->edited_by  = $fields->post_edited_by;
-        $post->edited_on  = $fields->post_edited_on;
-        $post->author     = $fields->author;
+        $post->id               = $fields->id;
+        $post->title            = $fields->post_title;
+        $post->content          = $fields->post_content;
+        $post->created_by       = $fields->post_created_by;
+        $post->created_on       = $fields->post_created_on;
+        $post->edited_by        = $fields->post_edited_by;
+        $post->edited_on        = $fields->post_edited_on;
+        $post->author           = $fields->author;
+        //$post->comments_count   = $fields->comments_count;
 
         return $post;
     }
@@ -81,6 +117,27 @@ class Posts extends Model
         $query          = sprintf("SELECT user_nickname FROM blog_user WHERE id = %d LIMIT 1", $this->created_by);
         $result         = $this->query($query);
         $this->author   = $result[0]->user_nickname;
+    }
+
+    public function getCommentsCount($id)
+    {
+        $comments_count = 0;
+
+        $query = "SELECT 
+                    COUNT(id) AS comments_count 
+                  FROM 
+                    blog_comment 
+                  WHERE 
+                    comment_parent_post_id = %d 
+                    AND comment_enabled = true;";
+        $query = sprintf($query, $id);
+
+        $comments_count_result = $this->query($query);
+        if($comments_count_result)
+        {
+            $comments_count = $comments_count_result[0]->comments_count;
+        }
+        return $comments_count;
     }
 
 }

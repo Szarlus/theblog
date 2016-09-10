@@ -111,3 +111,13 @@ textarea {
     margin-top: -200px;
     margin-left: -150px;;
 }
+
+.table-row {
+    background-color: whitesmoke;
+}
+
+.mark {
+    background-color: lightgrey;
+    border-color: #0f0f0f;
+    border-style: solid;
+}

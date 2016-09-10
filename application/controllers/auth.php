@@ -15,8 +15,4 @@ class Auth extends Controller
 
 }
 
-
-
-
-
 ?>

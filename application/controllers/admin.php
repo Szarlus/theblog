@@ -1,5 +1,4 @@
 <?php
-ini_set('error_reporting', E_ALL);
 class Admin extends Controller
 {
     private $session;
@@ -39,6 +38,8 @@ class Admin extends Controller
             else
             {
                 $this->session->set('logged_in', true);
+                $this->session->set('timeout', time());
+                $this->session->set('username', $username);
                 $this->redirect('admin');
             }
             $template->set('error', $error);
@@ -46,6 +47,26 @@ class Admin extends Controller
             $template->set('password', $password);
             $template->set('logged', $logged);
         }
+
+        $template->render();
+    }
+
+    function categories()
+    {
+        $categoriesModel = $this->loadModel('categories_model');
+
+        $searchCategory = '';
+        if(isset($_GET['category_search']) && !empty('search_name'))
+        {
+            $searchCategory = $categoriesModel->sanitize($_GET['search_name']);
+        }
+        $categoriesTable = $categoriesModel->getCategories($searchCategory);
+        $categoriesOptions = $categoriesModel->getCategoriesOption('', 2);
+
+        if(!$this->session->get('logged_in')) $this->redirect('admin/login');
+        $template = $this->loadView('administrator/categories');
+        $template->set('categories', $categoriesOptions);
+        $template->set('categoriesTable', $categoriesTable);
 
         $template->render();
     }

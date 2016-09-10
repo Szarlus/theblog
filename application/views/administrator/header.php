@@ -5,6 +5,7 @@
 ?>
 <body >
 <?php var_dump($_SESSION); ?>
+<?php var_dump($_REQUEST); ?>
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -18,13 +19,13 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="<?php echo BASE_URL;; ?>main">Strona główna</a></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Wpisy<span class="caret"></span></a>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edycja<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Page 1-1</a></li>
-                            <li><a href="#">Page 1-2</a></li>
-                            <li><a href="#">Page 1-3</a></li>
+                            <li><a href="#">Wszystkie wpisy</a></li>
+                            <li><a href="#">Nowy wpis</a></li>
+                            <li><a href="<?php echo BASE_URL; ?>admin/categories">Kategorie</a></li>
+                            <li><a href="#">Tagi</a></li>
                         </ul>
                     </li>
                 </ul>

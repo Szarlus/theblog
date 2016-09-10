@@ -15,7 +15,7 @@
                     <?php echo strlen ($post->content) < 200 ? $post->content : substr($post->content, 0, 200)."....."; ?>
                 </p>
                 <p>
-                    <i class="fa fa-comment"></i><small> <?php echo count($post->comments)?: 0 ?> komentarzy</small>
+                    <i class="fa fa-comment"></i><small> <?php echo $post->comments_count; ?> komentarzy</small>
                 </p>
             </article>
         <?php endif; ?>

@@ -15,7 +15,7 @@ class Auth_model extends Model
         $username = $this->sanitize($username);
         $tested_password = $this->sanitize($tested_password);
 
-        $query = "SELECT user_salt, user_password FROM blog_user WHERE user_nickname = '$username'";
+        $query = "SELECT user_salt, user_password FROM blog_user WHERE user_nickname = '$username' AND user_registered=true AND user_active = true LIMIT 1";
 
         $result = $this->query($query);
 

@@ -1,0 +1,18 @@
+<h3>Dodawanie nowej kategorii</h3>
+<form id="new_category">
+    <div class="form-group">
+        <label for="name">Nazwa:</label>
+        <input type="text" class="form-control" id="name" placeholder="Wprowadź nazwę">
+    </div>
+    <div class="form-group">
+        <label for="parent">Nadkategoria:</label>
+        <select class="form-control" id="parent">
+            <?php echo $categories; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="description">Opis:</label>
+        <textarea class="form-control" rows="5" id="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default" name="category_add">Dodaj nową kategorię</button>
+</form>

@@ -17,11 +17,13 @@ function blog()
 	if($request_url != $script_url) $url = trim(preg_replace('/'. str_replace('/', '\/', str_replace('index.php', '', $script_url)) .'/', '', $request_url, 1), '/');
     
 	// Split the url into segments
-	$segments = explode('/', $url);
+    $segments_get = explode('?', $url);
+	$segments = explode('/', $segments_get[0]);
+    if(isset($segments_get[1])) $get = $segments_get[1];
 	
 	// Do our default checks
 	if(isset($segments[0]) && $segments[0] != '') $controller = $segments[0];
-	if(isset($segments[1]) && $segments[1] != '') $action = $segments[1];
+	if(isset($segments[1]) && $segments[1] != '') $action = explode('?', $segments[1])[0];
 
 	// Get our controller file
     $path = APP_DIR . 'controllers/' . $controller . '.php';
