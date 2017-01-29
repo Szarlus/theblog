@@ -53,12 +53,24 @@ class Admin extends Controller
 
     function categories()
     {
+        $error_message = '';
         $categoriesModel = $this->loadModel('categories_model');
-
         $searchCategory = '';
         if(isset($_GET['category_search']) && !empty('search_name'))
         {
             $searchCategory = $categoriesModel->sanitize($_GET['search_name']);
+        } elseif(isset($_GET['category_add']) ) {
+                if(!empty($_GET['name']) && !empty($_GET['description'])) {
+                    $addCategorySuccess = $categoriesModel->add_category($_GET['name'], $_GET['description']);
+
+                    if (!$addCategorySuccess) {
+                        $error_message = "Nieudane zapisanie kategorii";
+                    }
+
+                } else {
+
+                    $error_message = 'Nazwa i opis kategorii nie mogą być puste!';
+                }
         }
         $categoriesTable = $categoriesModel->getCategories($searchCategory);
         $categoriesOptions = $categoriesModel->getCategoriesOption('', 2);
@@ -67,6 +79,40 @@ class Admin extends Controller
         $template = $this->loadView('administrator/categories');
         $template->set('categories', $categoriesOptions);
         $template->set('categoriesTable', $categoriesTable);
+        $template->set('error_message', $error_message);
+
+        $template->render();
+    }
+
+    function posts()
+    {
+        $error_message = '';
+        $postsModel = $this->loadModel('posts_model');
+        $searchCategory = '';
+        if(isset($_GET['category_search']) && !empty('search_name'))
+        {
+            $searchCategory = $categoriesModel->sanitize($_GET['search_name']);
+        } elseif(isset($_GET['post_add']) ) {
+                if(!empty($_GET['name']) && !empty($_GET['description']) && !empty($_GET['parent'])) {
+                    $addPostSuccess = $postsModel->add_post($_GET['name'], $_GET['description'], $_GET['parent']);
+
+                    if (!$addCategorySuccess) {
+                        $error_message = "Nieudane zapisanie kategorii";
+                    }
+
+                } else {
+
+                    $error_message = 'Nazwa i opis kategorii nie mogą być puste!';
+                }
+        }
+        $categoriesTable = $categoriesModel->getCategories($searchCategory);
+        $categoriesOptions = $categoriesModel->getCategoriesOption('', 2);
+
+        if(!$this->session->get('logged_in')) $this->redirect('admin/login');
+        $template = $this->loadView('administrator/posts');
+        $template->set('categories', $categoriesOptions);
+        $template->set('categoriesTable', $categoriesTable);
+        $template->set('error_message', $error_message);
 
         $template->render();
     }

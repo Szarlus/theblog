@@ -41,8 +41,8 @@ class Posts extends Model
                             LEFT JOIN
                         blog_comment c ON p.id = c.id 
                             AND c.comment_enabled = TRUE
-                    WHERE
-                        p.post_enabled = TRUE ";
+                    -- WHERE
+                        -- p.post_enabled = TRUE ";
 
 
         if ($additional_conditions)

@@ -49,6 +49,15 @@ class Categories_model extends Model {
                                             blog_posts_categories pc ON (s.id = pc.category_id)
                                         GROUP BY s.id;";
 
+    private $findCategoryByNameQuery = "SELECT COUNT(*) AS count FROM blog_category WHERE category_name = '{{cat_name}}'";
+
+    private $addNewCategoryQuery = "INSERT INTO blog_category (category_name, category_enabled, category_created_by, category_description) 
+                                        VALUES ('{{cat_name}}', true, 1, '{{cat_desc}}');";
+                                    
+    private $addCategoryToPath = "INSERT INTO blog_categories_path (ancestor_category_id, descendant_category_id, path_depth) VALUES
+                                        (0, (SELECT id FROM blog_category WHERE category_name = '{{cat_name}}'), 1),
+                                        ((SELECT id FROM blog_category WHERE category_name = '{{cat_name}}'), (SELECT id FROM blog_category WHERE category_name = '{{cat_name}}'), 0); ";
+
 
     public function getSomething($id)
     {
@@ -104,6 +113,36 @@ class Categories_model extends Model {
         }
 
         return $categoriesRows;
+    }
+
+    public function add_category($name, $description, $parent = 0) {
+        $categoryExistsQuery = str_replace('{{cat_name}}', $name, $this->findCategoryByNameQuery);
+        $categoryExistsResult = $this->query($categoryExistsQuery);
+
+        $categoryByNameCount = $categoryExistsResult[0]->count;
+
+        if($categoryByNameCount >= 1) {
+            return "Kategoria o tej nazwie już istnieje";
+        } else {
+            $insertCategoryQuery = str_replace('{{cat_name}}', $name, $this->addNewCategoryQuery);
+            $insertCategoryQuery = str_replace('{{cat_desc}}', $description,  $insertCategoryQuery);
+
+            $addPath = str_replace('{{cat_name}}', $name, $this->addCategoryToPath); 
+
+            var_dump($insertCategoryQuery);
+            $this->execute('START TRANSACTION;');
+            $categoryInsertResult = $this->execute($insertCategoryQuery);
+            $addPathResult = $this->execute($addPath);
+
+            $wasSuccessful = ($categoryInsertResult && $addPathResult);
+            if($wasSuccessful) {
+                $this->execute('COMMIT;');
+            } else {
+                $this->execute('ROLLBACK;');
+            }
+
+            return $wasSuccessful;
+        }
     }
 
 }

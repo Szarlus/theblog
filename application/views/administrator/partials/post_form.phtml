@@ -1,0 +1,18 @@
+<h3>Dodawanie nowego postu</h3>
+<form id="new_post">
+    <div class="form-group">
+        <label for="name">Tutuł:</label>
+        <input type="text" class="form-control" id="name" name="name" placeholder="Wprowadź nazwę">
+    </div>
+    <div class="form-group">
+        <label for="parent">Kategoria:</label>
+        <select class="form-control" id="parent" name="parent">
+            <?php echo $categories; ?>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="description">Treść:</label>
+        <textarea class="form-control" rows="5" id="description" name="description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-default" name="post_add">Dodaj nowy post</button>
+</form>

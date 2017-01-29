@@ -4,8 +4,8 @@
     include(APP_DIR.'views/partials/head_include.phtml');
 ?>
 <body >
-<?php var_dump($_SESSION); ?>
-<?php var_dump($_REQUEST); ?>
+<?php //var_dump($_SESSION); ?>
+<?php //var_dump($_REQUEST); ?>
     <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
     <nav class="navbar navbar-default navbar-fixed-top">
         <div class="container">
@@ -35,3 +35,8 @@
             </div>
         </div>
     </nav>
+    <?php
+        if(isset($error_message) && !empty($error_message)) { 
+            include(APP_DIR.'views/administrator/partials/error_display.phtml'); 
+        }
+    ?>
