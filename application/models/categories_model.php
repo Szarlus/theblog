@@ -43,7 +43,7 @@ class Categories_model extends Model {
                                             WHERE
                                                 d.ancestor_category_id = 0
                                                     AND d.ancestor_category_id <> d.descendant_category_id
-                                                    AND nc.category_name like '%cat%'
+                                                    AND nc.category_name like '%{{cat_name}}%'
                                             GROUP BY d.descendant_category_id) s
                                                 LEFT JOIN
                                             blog_posts_categories pc ON (s.id = pc.category_id)
@@ -99,8 +99,6 @@ class Categories_model extends Model {
         $categoriesQuery = str_replace('{{cat_name}}', $catName, $this->categoriesDetailsQuery);
         $categoriesResult = $this->query($categoriesQuery);
 
-        print_r($categoriesQuery);
-
         if($categoriesResult)
         {
             foreach ($categoriesResult as $categoryData)
@@ -122,14 +120,14 @@ class Categories_model extends Model {
         $categoryByNameCount = $categoryExistsResult[0]->count;
 
         if($categoryByNameCount >= 1) {
-            return "Kategoria o tej nazwie już istnieje";
+            return false;
         } else {
             $insertCategoryQuery = str_replace('{{cat_name}}', $name, $this->addNewCategoryQuery);
             $insertCategoryQuery = str_replace('{{cat_desc}}', $description,  $insertCategoryQuery);
 
             $addPath = str_replace('{{cat_name}}', $name, $this->addCategoryToPath); 
 
-            var_dump($insertCategoryQuery);
+
             $this->execute('START TRANSACTION;');
             $categoryInsertResult = $this->execute($insertCategoryQuery);
             $addPathResult = $this->execute($addPath);
@@ -141,7 +139,7 @@ class Categories_model extends Model {
                 $this->execute('ROLLBACK;');
             }
 
-            return $wasSuccessful;
+            return ($wasSuccessful ? wasSuccessful : "Nie udało się") ;
         }
     }
 

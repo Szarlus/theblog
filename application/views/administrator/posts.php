@@ -17,7 +17,7 @@
                     <span class="input-group-btn">
                                 <button class="btn btn-default" type="submit" name="category_search">Wyszukaj kategorię</button>
                             </span>
-                </div><!-- /input-group -->
+                </div><!-- input-group -->
             </div>
         </form>-->
         </div> <!-- row -->

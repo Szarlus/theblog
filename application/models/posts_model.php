@@ -2,8 +2,20 @@
 
 require_once('application/models/post_model.php');
 
-class Posts extends Model
+class Posts_model extends Model
 {
+
+    private $insertPostSql = "INSERT
+                        INTO
+                        `blog_post`(
+                            `post_title`,
+                            `post_content`,
+                            `post_created_by`,
+                            `post_enabled`
+                        )
+                        VALUES( '{{post_name}}', '{{post_desc}}',  1, 1);";
+
+    private $insertPostCategorySql = "INSERT INTO `blog_posts_categories`(`category_id`, `post_id`) VALUES ( {{parent}}, (SELECT id FROM blog_post WHERE post_title = '{{post_name}}'))";
 
     public function __construct()
     {
@@ -41,8 +53,9 @@ class Posts extends Model
                             LEFT JOIN
                         blog_comment c ON p.id = c.id 
                             AND c.comment_enabled = TRUE
-                    -- WHERE
-                        -- p.post_enabled = TRUE ";
+                    WHERE
+                      p.post_enabled = TRUE 
+                      ";
 
 
         if ($additional_conditions)
@@ -138,6 +151,21 @@ class Posts extends Model
             $comments_count = $comments_count_result[0]->comments_count;
         }
         return $comments_count;
+    }
+
+    public function add_post($post_name, $post_desc, $parent) {
+
+        $savePostSql = str_replace('{{post_name}}', $post_name, $this->insertPostSql);
+        $savePostSql = str_replace('{{post_desc}}', $post_desc, $savePostSql);
+
+        $savePostResult = $this->execute($savePostSql);
+        
+        $savePostCategory = str_replace('{{parent}}', $parent, $this->insertPostCategorySql);
+        $savePostCategory = str_replace('{{post_name}}', $post_name, $savePostCategory);
+
+        $savePostCategoryResult =  $this->execute($savePostCategory);
+
+        return ($savePostResult && $savePostCategoryResult);
     }
 
 }

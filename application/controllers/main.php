@@ -1,12 +1,13 @@
 <?php
 
-require_once('application/models/posts_model.php');
+// require_once('application/models/posts_model.php');
 
 class Main extends Controller {
 	
 	function index()
 	{
-		$posts_model = new Posts();
+		// $posts_model = new Posts();
+		$posts_model = $this->loadModel('posts_model');
 		$posts = $posts_model->getPosts();
 
 		$posts_count = count($posts);
@@ -41,7 +42,7 @@ class Main extends Controller {
 
 	function read($id)
 	{
-		$posts_model = new Posts();
+		$posts_model = $this->loadModel('posts_model');
 		$post = $posts_model->getPostById($id);
 
 		if (!$post->id) 
